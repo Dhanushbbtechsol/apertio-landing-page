@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendor Bklit chart sources (shadcn registry)
+    "src/components/charts/**",
+    "src/components/shimmering-text.tsx",
   ]),
 ]);
 
