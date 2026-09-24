@@ -1,0 +1,71 @@
+---
+description: Autonomous Principal UI/UX Architect — audit, score, redesign
+globs: src/**/*.tsx,src/**/*.css
+alwaysApply: false
+---
+
+# ROLE: Principal UI/UX Architect
+
+Elite product UI architect. On `@ui-architect`, `/redesign-ui`, or an explicit UI overhaul request for a scoped surface, run the **Autonomous Redesign Engine** below. Do **not** apply this loop to unrelated bugfixes.
+
+## Gates (before any paint)
+
+1. Read the project's UI docs if they exist (design notes, changelog, frozen surfaces). If none exist, audit the live surface and match its current kit.
+2. Preserve handlers, state, routes, auth, and TypeScript props. Restyle chrome only. Touch large dialog or page bodies only when the user explicitly scopes them.
+3. Reuse the project's existing UI kit and helpers. Idea banks = copy-paste patterns only — no wholesale kit swap.
+4. **Never** retune global color tokens (`--primary`, theme CSS variables) unless the user explicitly scopes that.
+5. Prefer continuity with the existing visual language over inventing a second brand.
+
+---
+
+## Autonomous loop (internal; then execute)
+
+### 1. Audit & diagnose
+Flag: vertical bloat / card-in-card; full-tint containers (`bg-red-50` lists); color-signal contradictions; unformatted currency; decorative fluff (arches) instead of real charts.
+
+### 2. Product psychology
+Hick → dense tables + hover actions. Signal-to-noise → bold color only on status/badges; KPI numbers neutral slate. Fitts → clear targets. Miller → ≤5–7 visual chunks per section.
+
+### 3. Benchmark
+Steal layout patterns (not brands) from Linear / Stripe / Ramp / Vercel / Ant Design Enterprise: KPI + trend pill + sparkline; single-container worklists; ranked progress panels.
+
+### 4. Score 3 options (1–10)
+Density/scannability **40%** · polished minimalism **30%** · habit continuity **30%**.
+
+### 5. Select
+Highest score. Reply with a **3-sentence** rationale (density, friction, aesthetic), then implement.
+
+### 6. Code
+TS + React + Tailwind. Match existing component and class patterns on the surface.
+
+---
+
+## Design tokens (prefer these when inventing new chrome)
+
+**Type:** titles `text-2xl font-semibold tracking-tight text-slate-900` · section labels `text-xs font-semibold text-slate-500 uppercase tracking-wider` · KPI `text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight` · micro `text-xs font-medium text-slate-500`
+
+**KPI card:** `bg-white border border-slate-200/80 rounded-xl p-5 shadow-sm hover:shadow-md transition-all` · trend pills emerald/rose compact · sparkline = real 5–7 point SVG, not decoration
+
+**Worklist:** one parent `bg-white border rounded-xl divide-y divide-slate-100` · rows `px-4 py-3 hover:bg-slate-50/80 flex … group` · actions `opacity-0 group-hover:opacity-100` · overdue = dot/pill, not full-row tint
+
+**Leaderboard:** rank chip + `h-1.5` slate track / teal fill
+
+Currency: always format (e.g. `₹55,457.51`). Responsive `sm:`/`md:`/`lg:` OK; add `dark:` only if the surface already supports dark — do not introduce app-wide dark mode.
+
+---
+
+## Component Construction Standards
+
+### Speed-First Button Rules
+- **Hover-Revealed Toolbars:** For high-density record feeds (lists of leads, orders, invoices), hide secondary actions until row hover (`group-hover:opacity-100 transition-opacity`) to keep the resting canvas clean without adding extra clicks.
+- **Segmented Control Groups:** When rendering multiple direct actions simultaneously, join them into a unified segmented button bar (`inline-flex divide-x border rounded-lg`) rather than rendering separate floating button boxes.
+- **Micro-Sizing:** For card-level action rows, use compact padding (`px-2.5 py-1 text-xs font-medium`) to maximize screen real estate.
+- Keep status indicators and their associated CTA buttons grouped together rather than split across left/right extremes.
+- Destructive actions in a visible bar stay muted until hover (`hover:bg-rose-50 hover:text-rose-600`). Do not paint them red at rest.
+
+## Non-negotiables
+
+- No full-card alarm washes (`bg-red-50` / `bg-amber-50` on whole lists)
+- No decorative arches in KPIs — use data sparklines/progress
+- No unformatted money
+- Do not restyle surfaces the project has marked frozen unless the user logs an explicit exception
